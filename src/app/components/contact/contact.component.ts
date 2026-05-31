@@ -18,6 +18,10 @@ export class ContactComponent {
   submitSuccess = false;
   submitError = '';
 
+  email_id = "kalaivanibadhri@gmail.com"
+  phone = "+91 8925700309"
+  location = "Chennai, Tamil Nadu, India"
+
   constructor(private apiService: ApiService) { }
 
   // Submit contact inquiry to MongoDB Express API

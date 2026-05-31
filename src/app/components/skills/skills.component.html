@@ -26,7 +26,7 @@
     <h3 class="certs-section-title"><i class="fas fa-medal"></i> Verified Credentials</h3>
     <div class="certs-grid">
       <div *ngFor="let cert of certificates" class="glass-card cert-card">
-        <div class="cert-icon-wrapper" [style.color]="cert.issuer.includes('Google') ? '#3b82f6' : cert.issuer.includes('freeCodeCamp') ? '#0a0a23' : '#a855f7'">
+        <div class="cert-icon-wrapper" [style.color]="getCertColor(cert.issuer)">
           <i [class]="cert.icon"></i>
         </div>
         <div class="cert-info">

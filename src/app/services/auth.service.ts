@@ -7,10 +7,6 @@ export type UserRole = 'Guest' | 'Admin' | 'SuperAdmin';
   providedIn: 'root'
 })
 export class AuthService {
-  // Pre-configured passwords/keys for RBAC validation demonstration
-  private readonly ADMIN_KEY = 'admin_secret_key_127_986';
-  private readonly SUPER_ADMIN_KEY = 'super_admin_secret_key_999_888';
-
   // Session variables
   private activeRoleSubject = new BehaviorSubject<UserRole>('Guest');
   private activeKeySubject = new BehaviorSubject<string>('');
@@ -28,27 +24,12 @@ export class AuthService {
     }
   }
 
-  // Switch role visually (Simulating RBAC login triggers)
+  // Switch role dynamically
   changeRole(role: UserRole, key: string = '') {
     sessionStorage.setItem('rbac_role', role);
     sessionStorage.setItem('rbac_key', key);
     this.activeRoleSubject.next(role);
     this.activeKeySubject.next(key);
-  }
-
-  // Authenticate key to obtain administrative role
-  authenticate(passkey: string): boolean {
-    if (passkey === this.SUPER_ADMIN_KEY) {
-      this.changeRole('SuperAdmin', this.SUPER_ADMIN_KEY);
-      return true;
-    } else if (passkey === this.ADMIN_KEY) {
-      this.changeRole('Admin', this.ADMIN_KEY);
-      return true;
-    }
-    
-    // Fall back to Guest
-    this.changeRole('Guest', '');
-    return false;
   }
 
   // Log out/Reset role

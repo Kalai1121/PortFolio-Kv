@@ -1,4 +1,6 @@
 import { Component, OnInit, HostListener } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
 
 
 @Component({
@@ -14,6 +16,8 @@ export class AppComponent implements OnInit {
   // Custom Cursor variables
   cursorX = 0;
   cursorY = 0;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     // 1. Initialise dark mode theme from local storage
@@ -34,54 +38,77 @@ export class AppComponent implements OnInit {
       }
     });
 
-    // 3. Scroll Reveal & Navbar Active Tab Tracking
-    setTimeout(() => {
-      const sections = ['home-top', 'about', 'skills', 'portfolio', 'contact'];
+    // 3. Scroll Reveal & Navbar Active Tab Tracking on Navigation
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      const url = event.urlAfterRedirects || event.url;
       
-      const observerOptions = {
-        root: null,
-        rootMargin: '-20% 0px -60% 0px',
-        threshold: 0
-      };
+      // If we are on the admin page, remove active states from the general nav links
+      if (url.includes('/admin')) {
+        const sections = ['home', 'about', 'skills', 'portfolio', 'contact'];
+        sections.forEach(sec => {
+          const navLink = document.getElementById(`nav-${sec}`);
+          const mobLink = document.getElementById(`mob-nav-${sec}`);
+          if (navLink) navLink.classList.remove('active');
+          if (mobLink) mobLink.classList.remove('active');
+        });
+        return;
+      }
 
-      const scrollObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            
-            sections.forEach(sec => {
-              const navLink = document.getElementById(`nav-${sec === 'home-top' ? 'home' : sec}`);
-              const mobLink = document.getElementById(`mob-nav-${sec === 'home-top' ? 'home' : sec}`);
+      // Re-initialize Scroll-Reveal observers on home page navigation
+      setTimeout(() => {
+        const sections = ['home-top', 'about', 'skills', 'portfolio', 'contact'];
+        
+        const observerOptions = {
+          root: null,
+          rootMargin: '-20% 0px -60% 0px',
+          threshold: 0
+        };
+
+        const scrollObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
               
-              if (sec === id) {
-                if (navLink) navLink.classList.add('active');
-                if (mobLink) mobLink.classList.add('active');
-              } else {
-                if (navLink) navLink.classList.remove('active');
-                if (mobLink) mobLink.classList.remove('active');
-              }
-            });
-          }
+              sections.forEach(sec => {
+                const navLink = document.getElementById(`nav-${sec === 'home-top' ? 'home' : sec}`);
+                const mobLink = document.getElementById(`mob-nav-${sec === 'home-top' ? 'home' : sec}`);
+                
+                if (sec === id) {
+                  if (navLink) navLink.classList.add('active');
+                  if (mobLink) mobLink.classList.add('active');
+                } else {
+                  if (navLink) navLink.classList.remove('active');
+                  if (mobLink) mobLink.classList.remove('active');
+                }
+              });
+            }
+          });
+        }, observerOptions);
+
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('reveal-active');
+            }
+          });
+        }, { threshold: 0.1 });
+
+        const heroEl = document.getElementById('home-top');
+        if (heroEl) {
+          scrollObserver.observe(heroEl);
+          // Instantly reveal hero if active
+          heroEl.classList.add('reveal-active');
+        }
+
+        const targets = document.querySelectorAll('.scroll-reveal-section');
+        targets.forEach(t => {
+          scrollObserver.observe(t);
+          revealObserver.observe(t);
         });
-      }, observerOptions);
-
-      const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('reveal-active');
-          }
-        });
-      }, { threshold: 0.1 });
-
-      const heroEl = document.getElementById('home-top');
-      if (heroEl) scrollObserver.observe(heroEl);
-
-      const targets = document.querySelectorAll('.scroll-reveal-section');
-      targets.forEach(t => {
-        scrollObserver.observe(t);
-        revealObserver.observe(t);
-      });
-    }, 800);
+      }, 400);
+    });
   }
 
   // Track window scroll to update top progress bar

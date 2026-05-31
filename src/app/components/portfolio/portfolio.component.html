@@ -2,8 +2,7 @@
   <div class="container">
     <h2 class="section-title">My Portfolio</h2>
     <p class="section-subtitle-desc">
-      A selection of projects ranging from enterprise-level Angular applications to full-stack portals and case studies.
-      All projects are **fetched dynamically from a MongoDB database**.
+      All projects are <strong>fetched dynamically from a MongoDB database</strong>
     </p>
 
     <!-- Glowing Capsule Filters -->
@@ -19,7 +18,7 @@
     <!-- Spinner States -->
     <div *ngIf="isLoading" class="loading-state">
       <div class="loading-spinner"></div>
-      <p>Fetching projects from MongoDB database...</p>
+      <p>Fetching projects from DB...</p>
     </div>
 
     <!-- Error Alert Box -->
@@ -55,9 +54,9 @@
               <a *ngIf="project.demoLink" [href]="project.demoLink" target="_blank" class="action-btn-demo" title="Open Live Demo">
                 <i class="fas fa-external-link-alt"></i> Demo
               </a>
-              <a *ngIf="project.githubLink" [href]="project.githubLink" target="_blank" class="action-btn-git" title="View Source Code">
+              <!-- <a *ngIf="project.githubLink" [href]="project.githubLink" target="_blank" class="action-btn-git" title="View Source Code">
                 <i class="fab fa-github"></i> Code
-              </a>
+              </a> -->
             </div>
             <button class="action-btn-details" (click)="openDetails(project)">
               Details <i class="fas fa-arrow-right"></i>
@@ -80,7 +79,7 @@
 
           <!-- Modal Right Description Details -->
           <div class="modal-info-column">
-            <span class="badge" [class]="'badge-' + selectedProject.category.toLowerCase()">{{ selectedProject.category }}</span>
+            <span class="badge" [class]="'badge-' + (selectedProject.category?.toLowerCase() || '')">{{ selectedProject.category }}</span>
             <h3 class="modal-title">{{ selectedProject.title }}</h3>
             
             <h5 class="modal-heading">Overview</h5>
@@ -88,7 +87,7 @@
 
             <h5 class="modal-heading">Technologies Used</h5>
             <div class="modal-tech-list">
-              <span *ngFor="let tech of selectedProject.technologies" class="modal-tech-pill">{{ tech }}</span>
+              <span *ngFor="let tech of selectedProject.technologies || []" class="modal-tech-pill">{{ tech }}</span>
             </div>
 
             <!-- Modal Action Buttons -->
@@ -96,9 +95,9 @@
               <a *ngIf="selectedProject.demoLink" [href]="selectedProject.demoLink" target="_blank" class="btn btn-primary">
                 <i class="fas fa-external-link-alt"></i> Launch Demo
               </a>
-              <a *ngIf="selectedProject.githubLink" [href]="selectedProject.githubLink" target="_blank" class="btn btn-secondary">
+              <!-- <a *ngIf="selectedProject.githubLink" [href]="selectedProject.githubLink" target="_blank" class="btn btn-secondary">
                 <i class="fab fa-github"></i> View GitHub
-              </a>
+              </a> -->
             </div>
           </div>
         </div>

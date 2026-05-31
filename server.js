@@ -57,7 +57,7 @@ const SUPER_ADMIN_ACCESS_KEY = process.env.SUPER_ADMIN_ACCESS_KEY || 'super_admi
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'dist', 'kalai-portfolio')));
 
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI)
@@ -410,7 +410,7 @@ app.delete('/api/contact/:id', checkAuth('SuperAdmin'), async (req, res) => {
 
 // SPA routing callback: Serves frontend layout for all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'dist', 'kalai-portfolio', 'index.html'));
 });
 
 app.listen(PORT, () => {

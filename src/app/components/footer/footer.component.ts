@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
   currentYear: number = new Date().getFullYear();
+
+  email = "kalaivanibadhri@gmail.com"
+  github = "https://github.com/kalai1121"
+  linkedin = "https://www.linkedin.com/in/kalaivani-s-1121p/"
 }

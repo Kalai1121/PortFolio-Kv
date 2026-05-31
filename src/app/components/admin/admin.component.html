@@ -2,52 +2,28 @@
   <div class="container">
     <h2 class="section-title">Admin Dashboard</h2>
 
-    <!-- RBAC Visual Simulation Panel -->
+    <!-- Secure Admin Authentication Card -->
     <div class="glass-card rbac-simulator-card">
       <div class="rbac-header">
-        <h3><i class="fas fa-sliders-h"></i> Role-Based Access Simulation</h3>
-        <span class="active-role-tag" [class]="'role-' + activeRole.toLowerCase()">Active Role: {{ activeRole }}</span>
+        <h3><i class="fas fa-user-shield"></i> Secure Admin Portal</h3>
+        <span class="active-role-tag" [class]="'role-' + activeRole.toLowerCase()">Session: {{ activeRole }}</span>
       </div>
-      <p class="rbac-desc">
-        Demonstrating dynamic access permissions. You can switch roles below to see how the dashboard hides/shows data and restricts actions depending on authorization:
+      <p class="rbac-desc" *ngIf="activeRole === 'Guest'">
+        This is a private administrative dashboard. Please enter your authorization key to proceed.
       </p>
       
-      <!-- Simulation Tabs -->
-      <div class="rbac-tabs">
-        <button (click)="simulateRole('Guest')" [class.active]="activeRole === 'Guest'" class="rbac-tab-btn">
-          <i class="fas fa-eye"></i> Guest Role
-        </button>
-        <button (click)="simulateRole('Admin')" [class.active]="activeRole === 'Admin'" class="rbac-tab-btn">
-          <i class="fas fa-user-cog"></i> Admin Role
-        </button>
-        <button (click)="simulateRole('SuperAdmin')" [class.active]="activeRole === 'SuperAdmin'" class="rbac-tab-btn">
-          <i class="fas fa-user-shield"></i> Super Admin Role
-        </button>
-      </div>
-
-      <!-- Real Auth Form Toggle -->
+      <!-- Secure Authentication Form -->
       <div class="rbac-login-section">
-        <span class="divider-text">OR ENTER AUTHORIZATION KEY</span>
-        
         <form *ngIf="activeRole === 'Guest'" (ngSubmit)="onLoginSubmit()" #loginForm="ngForm" class="auth-key-form">
-          <input type="password" name="passkey" [(ngModel)]="passkey" required class="form-input key-input" placeholder="Enter administrative passkey...">
+          <input type="password" name="passkey" [(ngModel)]="passkey" required class="form-input key-input" placeholder="Enter administrative key...">
           <button type="submit" class="btn btn-primary btn-auth-submit">Authenticate</button>
         </form>
         
         <div *ngIf="activeRole !== 'Guest'" class="active-auth-session">
-          <p class="session-text"><i class="fas fa-check-circle"></i> Authenticated Session (Token Key Loaded)</p>
-          <button (click)="onLogout()" class="btn btn-secondary btn-logout">Logout / Reset</button>
+          <p class="session-text"><i class="fas fa-check-circle"></i> Administrative session is currently active.</p>
+          <button (click)="onLogout()" class="btn btn-secondary btn-logout">Secure Logout</button>
         </div>
         <p *ngIf="authError" class="auth-error-msg"><i class="fas fa-exclamation-circle"></i> {{ authError }}</p>
-      </div>
-
-      <!-- Quick credentials tip alert -->
-      <div class="credentials-tip-box">
-        <p><strong><i class="fas fa-info-circle"></i> Developer Cheat Sheet:</strong></p>
-        <ul>
-          <li>Admin Key: <code>admin_secret_key_127_986</code></li>
-          <li>Super Admin Key: <code>super_admin_secret_key_999_888</code></li>
-        </ul>
       </div>
     </div>
 
@@ -101,7 +77,7 @@
         <i class="fas fa-lock restricted-icon animate-float"></i>
         <h3>Access Restricted</h3>
         <p>
-          The contact inquiries inbox is only accessible to authorized roles. Switch to the Admin or Super Admin simulation roles above to view the message list, test status filters, and perform CRUD actions.
+          The contact inquiries inbox is only accessible to authorized administrators. Please authenticate using your passkey in the secure portal above to view the messages.
         </p>
       </div>
 

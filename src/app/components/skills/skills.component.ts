@@ -83,14 +83,24 @@ export class SkillsComponent {
     {
       title: 'Web Development Certificate',
       issuer: 'IBM',
-      credentialUrl: 'https://www.credly.com/badges/dcfea366-8b2a-484f-9375-68096427fbc8/linked_in_profile',
+      credentialUrl: 'https://www.credly.com/badges/f1a53e66-2522-41b4-b207-0bea8b2d5f6c/linked_in_profile',
       icon: 'fas fa-server'
     },
     {
       title: 'Python Programming Specialization',
-      issuer: 'Guvi Geek Networks, IITM Research Park',
+      issuer: 'CPDA',
       credentialUrl: 'https://kalai1121.github.io/Portfolio-Kalai/uploads/Kalaivani%20S%20CPDA%20Certificate.pdf',
       icon: 'fab fa-python'
     }
   ];
+
+  // Dynamically assign premium high-contrast brand colors to certificate icons
+  getCertColor(issuer: string): string {
+    const name = issuer.toLowerCase();
+    if (name.includes('google')) return '#3b82f6';      // Google Blue
+    if (name.includes('microsoft')) return '#00a4ef';   // Microsoft Blue/Teal
+    if (name.includes('freecodecamp')) return '#10b981'; // freeCodeCamp Emerald Green
+    if (name.includes('ibm')) return '#0f62fe';          // IBM Dark Blue
+    return '#ffd43b';                                    // Python/CPDA Yellow Accent
+  }
 }

@@ -49,25 +49,26 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  // Visual Simulation Role Switcher (No Password required)
-  simulateRole(role: UserRole) {
-    if (role === 'SuperAdmin') {
-      this.authService.changeRole('SuperAdmin', 'super_admin_secret_key_999_888');
-    } else if (role === 'Admin') {
-      this.authService.changeRole('Admin', 'admin_secret_key_127_986');
-    } else {
-      this.authService.logout();
-    }
-  }
-
-  // Handle standard Passkey Form Authentication
+  // Handle standard Passkey Form Authentication by querying the API directly
   onLoginSubmit() {
     this.authError = '';
-    const success = this.authService.authenticate(this.passkey);
-    if (!success) {
-      this.authError = 'Invalid authorization passkey entered.';
-    }
-    this.passkey = '';
+    this.isLoading = true;
+    
+    this.apiService.getInquiries(this.passkey).subscribe({
+      next: (data) => {
+        // Success! Set the role. If key contains 'super' (case-insensitive), make it SuperAdmin
+        const role: UserRole = this.passkey.toLowerCase().includes('super') ? 'SuperAdmin' : 'Admin';
+        this.authService.changeRole(role, this.passkey);
+        this.isLoading = false;
+        this.passkey = '';
+      },
+      error: (err) => {
+        console.error('Authentication check failed:', err);
+        this.authError = 'Invalid authorization passkey entered or server is unreachable.';
+        this.isLoading = false;
+        this.authService.logout();
+      }
+    });
   }
 
   onLogout() {

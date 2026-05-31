@@ -112,7 +112,7 @@ async function seedProjects() {
         technologies: ["Angular", "TypeScript", "RxJS", "REST APIs", "MongoDB"],
         demoLink: "",
         githubLink: "",
-        imageUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/Guestezee-admin.png",
         featured: true
       },
       {
@@ -122,7 +122,7 @@ async function seedProjects() {
         technologies: ["Angular", "TypeScript", "REST APIs", "MongoDB", "Bootstrap"],
         demoLink: "",
         githubLink: "",
-        imageUrl: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/Guestezee-super-admin.png",
         featured: true
       },
       {
@@ -142,7 +142,7 @@ async function seedProjects() {
         technologies: ["Angular", "TypeScript", "Bootstrap", "RxJS", "SSR"],
         demoLink: "",
         githubLink: "",
-        imageUrl: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/eproov.png",
         featured: true
       },
       {
@@ -172,7 +172,7 @@ async function seedProjects() {
         technologies: ["MongoDB", "Express.js", "React.js", "Node.js", "Postman", "Bootstrap"],
         demoLink: "https://student-data-management-575o.onrender.com",
         githubLink: "https://github.com/kalai1121/Student-Data-Management",
-        imageUrl: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/Student-data-management.png",
         featured: true
       },
       {
@@ -182,7 +182,7 @@ async function seedProjects() {
         technologies: ["MongoDB", "Express.js", "React.js", "Node.js", "Bootstrap", "jQuery"],
         demoLink: "https://todo-list-i5df.onrender.com",
         githubLink: "https://github.com/kalai1121/Todo-list-backend",
-        imageUrl: "https://images.unsplash.com/photo-1540350394557-8d14678e7f91?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/To-do-list.png",
         featured: true
       },
       {
@@ -192,7 +192,7 @@ async function seedProjects() {
         technologies: ["React.js", "JavaScript (ES6)", "OpenWeatherMap API", "Vite", "React Hooks"],
         demoLink: "https://kalai1121.github.io/Weather-app/",
         githubLink: "https://github.com/kalai1121/Weather-app",
-        imageUrl: "https://images.unsplash.com/photo-1504253163759-c23fcca5e464?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/Weather-app.png",
         featured: true
       },
       {
@@ -202,7 +202,7 @@ async function seedProjects() {
         technologies: ["HTML5", "CSS3", "JavaScript", "Bootstrap"],
         demoLink: "https://kalai1121.github.io/Personal-Portfolio/",
         githubLink: "https://github.com/kalai1121/Personal-Portfolio",
-        imageUrl: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/Personal-portfolio.png",
         featured: false
       },
       {
@@ -212,7 +212,7 @@ async function seedProjects() {
         technologies: ["Google UX Design", "Figma", "Photoshop", "User Research", "Wireframing"],
         demoLink: "https://kalai1121.github.io/Portfolio-Kalai/uploads/Google%20UX%20Design%20Certificate%20-%20Portfolio%20Project%202%20-%20Case%20study%20slide%20deck%20%5BTemplate%5D.pdf",
         githubLink: "https://www.figma.com/design/EC6E2rSQt7v2PFOlJCXRYk/ParkNow",
-        imageUrl: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/ParkNow.png",
         featured: true
       },
       {
@@ -222,7 +222,7 @@ async function seedProjects() {
         technologies: ["HTML5", "Tailwind CSS", "Responsive Design"],
         demoLink: "https://kalai1121.github.io/Product-Card-with-tailwind-css/",
         githubLink: "https://github.com/kalai1121/Product-Card-with-tailwind-css",
-        imageUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/Product-card.png",
         featured: false
       },
       {
@@ -232,7 +232,7 @@ async function seedProjects() {
         technologies: ["HTML5", "CSS3", "Flexbox", "Form Validation"],
         demoLink: "https://kalai1121.github.io/Survey-Form/",
         githubLink: "https://github.com/kalai1121/Survey-Form",
-        imageUrl: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/Survey-form.png",
         featured: false
       },
       {
@@ -242,7 +242,7 @@ async function seedProjects() {
         technologies: ["HTML5", "CSS3", "Responsive Layout"],
         demoLink: "https://kalai1121.github.io/Technical-Documentation-Page/",
         githubLink: "https://github.com/kalai1121/Technical-Documentation-Page",
-        imageUrl: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&auto=format&fit=crop&q=60",
+        imageUrl: "assets/Technical-documentation.png",
         featured: false
       }
     ];

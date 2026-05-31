@@ -145,16 +145,16 @@ async function seedProjects() {
         imageUrl: "assets/eproov.png",
         featured: true
       },
-      {
-        title: "House of Talent Platform",
-        description: "Collaborated on debugging, refactoring, and optimizing the user interface of an enterprise candidate talent pool directory.",
-        category: "Enterprise",
-        technologies: ["Angular", "TypeScript", "Bootstrap", "UI Optimization"],
-        demoLink: "",
-        githubLink: "",
-        imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&auto=format&fit=crop&q=60",
-        featured: false
-      },
+      // {
+      //   title: "House of Talent Platform",
+      //   description: "Collaborated on debugging, refactoring, and optimizing the user interface of an enterprise candidate talent pool directory.",
+      //   category: "Enterprise",
+      //   technologies: ["Angular", "TypeScript", "Bootstrap", "UI Optimization"],
+      //   demoLink: "",
+      //   githubLink: "",
+      //   imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&auto=format&fit=crop&q=60",
+      //   featured: false
+      // },
       {
         title: "Vigha Operations Interface",
         description: "Resolved responsive display layout bugs and improved overall usability of a multi-tenant operational control panel.",

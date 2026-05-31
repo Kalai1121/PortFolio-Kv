@@ -1,0 +1,42 @@
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Skills & Certifications</h2>
+
+    <!-- Skills Columns Grid -->
+    <div class="skills-categories-grid">
+      <div *ngFor="let cat of skillCategories" class="glass-card category-card">
+        <h3 class="category-title">{{ cat.title }}</h3>
+        
+        <div class="skills-list">
+          <div *ngFor="let skill of cat.skills" class="skill-item">
+            <!-- Icon & Name Left -->
+            <div class="skill-identity">
+              <span class="skill-logo">
+                <i *ngIf="skill.icon.startsWith('fas') || skill.icon.startsWith('fab')" [class]="skill.icon"></i>
+                <i *ngIf="!skill.icon.startsWith('fas') && !skill.icon.startsWith('fab')" [class]="skill.icon"></i>
+              </span>
+              <span class="skill-name">{{ skill.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications Section -->
+    <h3 class="certs-section-title"><i class="fas fa-medal"></i> Verified Credentials</h3>
+    <div class="certs-grid">
+      <div *ngFor="let cert of certificates" class="glass-card cert-card">
+        <div class="cert-icon-wrapper" [style.color]="cert.issuer.includes('Google') ? '#3b82f6' : cert.issuer.includes('freeCodeCamp') ? '#0a0a23' : '#a855f7'">
+          <i [class]="cert.icon"></i>
+        </div>
+        <div class="cert-info">
+          <h4>{{ cert.title }}</h4>
+          <p class="cert-issuer">{{ cert.issuer }}</p>
+          <a [href]="cert.credentialUrl" target="_blank" class="cert-link">
+            Verify Credential <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

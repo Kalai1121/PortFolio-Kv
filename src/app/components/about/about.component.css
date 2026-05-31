@@ -1,0 +1,269 @@
+/* About PageTimelines & Cards CSS */
+
+.bio-card {
+  display: flex;
+  gap: 40px;
+  padding: 40px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+@media (max-width: 768px) {
+  .bio-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px 20px;
+    gap: 24px;
+  }
+}
+
+.bio-avatar-wrapper {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 3px solid var(--card-border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bio-avatar-wrapper:hover {
+  border-color: var(--primary);
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(168, 85, 247, 0.2);
+}
+
+.bio-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.bio-details h3 {
+  font-size: 1.6rem;
+  margin-bottom: 16px;
+}
+
+.bio-details p {
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  font-size: 1rem;
+}
+
+.bio-details p strong {
+  color: var(--text-primary);
+}
+
+/* --- Dual Timeline Grid --- */
+.timelines-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin-bottom: 80px;
+}
+
+@media (max-width: 900px) {
+  .timelines-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+}
+
+.timeline-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-col-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-primary);
+}
+
+.timeline-col-title i {
+  color: var(--secondary);
+}
+
+.timeline-column:first-child .timeline-col-title i {
+  color: var(--primary);
+}
+
+/* --- Vertical Timeline Track --- */
+.vertical-timeline {
+  position: relative;
+  border-left: 2px solid var(--card-border);
+  padding-left: 32px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.vertical-timeline-item {
+  position: relative;
+}
+
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--bg-space);
+  position: absolute;
+  left: -41px;
+  top: 24px;
+  z-index: 5;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.dot-primary {
+  border: 4px solid var(--primary);
+  box-shadow: 0 0 8px var(--primary-glow);
+}
+
+.dot-secondary {
+  border: 4px solid var(--secondary);
+  box-shadow: 0 0 8px var(--secondary-glow);
+}
+
+.timeline-card {
+  padding: 30px;
+  border-radius: 16px;
+  background: var(--card-bg);
+}
+
+.timeline-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.tag-primary {
+  background: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.15);
+  color: var(--primary);
+  border: 1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.25);
+}
+
+.tag-secondary {
+  background: hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.15);
+  color: var(--secondary);
+  border: 1px solid hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.25);
+}
+
+.event-role {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.event-org {
+  color: var(--secondary);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+
+.timeline-column:first-child .event-org {
+  color: var(--primary);
+}
+
+.event-desc {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Tech pills checklist */
+.timeline-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-pill {
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: hsla(240, 10%, 20%, 0.4);
+  border: 1px solid var(--card-border);
+  color: var(--text-secondary);
+}
+
+.academics-achievements {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+/* --- Sports Extras Grid --- */
+.about-extras-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .about-extras-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+
+.extra-card {
+  display: flex;
+  gap: 24px;
+  padding: 30px;
+  align-items: center;
+}
+
+.extra-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+
+.leadership-card .extra-icon {
+  background: hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.15);
+  border: 1px solid hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.3);
+  color: var(--secondary);
+}
+
+.chess-card .extra-icon {
+  background: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.15);
+  border: 1px solid hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.3);
+  color: var(--accent);
+}
+
+.extra-info h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.extra-info p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}

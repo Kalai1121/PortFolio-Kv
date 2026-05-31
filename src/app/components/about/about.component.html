@@ -1,0 +1,94 @@
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">About Me</h2>
+
+    <!-- Bio Summary Card -->
+    <div class="glass-card bio-card">
+      <div class="bio-avatar-wrapper">
+        <img src="assets/about_profile.jpg" alt="Kalaivani S" class="bio-avatar">
+      </div>
+      <div class="bio-details">
+        <h3>Building Beautiful, High-Performance Systems</h3>
+        <p>
+          I am a passionate Frontend & Full-Stack Developer with hands-on experience building scalable and responsive
+          web applications. With a strong foundation in ECE, I enjoy transforming complex requirements into smooth,
+          engaging, and high-performance digital products.
+        </p>
+        <p>
+          Throughout my journey—from Intern to Software Developer Trainee—I have contributed to 5+ live production
+          applications, specializing in modern frontend architectures, reusable UI components, dynamic JSON-driven
+          rendering, and scalable database integrations using Node.js and MongoDB. I am passionate about writing clean,
+          optimized code and collaborating with Agile teams to solve real-world problems.
+        </p>
+      </div>
+    </div>
+
+    <!-- Dual Timeline: Academics vs Experience -->
+    <div class="timelines-grid">
+      <!-- Academics Column -->
+      <div class="timeline-column">
+        <h3 class="timeline-col-title"><i class="fas fa-graduation-cap"></i> Academic Journey</h3>
+        <div class="vertical-timeline">
+          <div *ngFor="let item of academicTimeline" class="vertical-timeline-item">
+            <div class="timeline-dot dot-primary"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-tag tag-primary">{{ item.year }}</span>
+              <h4 class="event-role">{{ item.role }}</h4>
+              <p class="event-org">{{ item.organization }}</p>
+              <p class="event-desc">{{ item.description }}</p>
+              <div class="academics-achievements">
+                <span class="badge badge-cyan"><i class="fas fa-star"></i> Outstanding Student Award</span>
+                <span class="badge badge-cyan"><i class="fas fa-award"></i> Dept Rank 1st/2nd/3rd</span>
+                <span class="badge badge-cyan"><i class="fas fa-book"></i> 2 Conference Papers</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience Column -->
+      <div class="timeline-column">
+        <h3 class="timeline-col-title"><i class="fas fa-briefcase"></i> Professional Experience</h3>
+        <div class="vertical-timeline">
+          <div *ngFor="let item of workTimeline" class="vertical-timeline-item">
+            <div class="timeline-dot dot-secondary"></div>
+            <div class="glass-card timeline-card">
+              <span class="timeline-tag tag-secondary">{{ item.year }}</span>
+              <h4 class="event-role">{{ item.role }}</h4>
+              <p class="event-org">{{ item.organization }}</p>
+              <p class="event-desc">{{ item.description }}</p>
+
+              <!-- Technologies pillbox -->
+              <div *ngIf="item.tech" class="timeline-tech">
+                <span *ngFor="let tech of item.tech" class="tech-pill">{{ tech }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hobbies and Volleyball Captain Section -->
+    <div class="about-extras-grid">
+      <!-- Leadership Card -->
+      <div class="glass-card extra-card leadership-card animate-float">
+        <div class="extra-icon"><i class="fas fa-volleyball-ball"></i></div>
+        <div class="extra-info">
+          <h3>Team Captain (6 Years)</h3>
+          <p>Led a **District-level Volleyball Team** for 6 consecutive years, gaining essential team coordination,
+            strategic leadership, and high-pressure decision-making skills.</p>
+        </div>
+      </div>
+
+      <!-- General Interests Card -->
+      <div class="glass-card extra-card chess-card">
+        <div class="extra-icon"><i class="fas fa-chess-knight"></i></div>
+        <div class="extra-info">
+          <h3>Creative & Strategic Mind</h3>
+          <p>Beyond programming, I challenge myself with **Chess**, create layouts using **Photoshop Editing**, and am
+            always eager to learn **New Technologies** to expand my stack.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

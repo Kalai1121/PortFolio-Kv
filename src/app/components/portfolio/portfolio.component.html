@@ -1,0 +1,108 @@
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">My Portfolio</h2>
+    <p class="section-subtitle-desc">
+      A selection of projects ranging from enterprise-level Angular applications to full-stack portals and case studies.
+      All projects are **fetched dynamically from a MongoDB database**.
+    </p>
+
+    <!-- Glowing Capsule Filters -->
+    <div class="portfolio-filters">
+      <button *ngFor="let cat of ['All', 'Enterprise', 'Full-Stack', 'Frontend', 'UI-UX']"
+              [class.active]="activeCategory === cat"
+              (click)="filterCategory(cat)"
+              class="filter-btn">
+        {{ cat }}
+      </button>
+    </div>
+
+    <!-- Spinner States -->
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Fetching projects from MongoDB database...</p>
+    </div>
+
+    <!-- Error Alert Box -->
+    <div *ngIf="errorMessage" class="error-state glass-card">
+      <i class="fas fa-exclamation-triangle"></i>
+      <p>{{ errorMessage }}</p>
+      <button class="btn btn-secondary btn-sm" (click)="fetchProjects()"><i class="fas fa-sync"></i> Retry</button>
+    </div>
+
+    <!-- Projects Grid Layout -->
+    <div *ngIf="!isLoading && !errorMessage" class="projects-grid">
+      <div *ngFor="let project of filteredProjects" class="glass-card project-card" (click)="openDetails(project)">
+        <!-- Card Cover Image -->
+        <div class="project-img-wrapper">
+          <img [src]="project.imageUrl || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500'" [alt]="project.title" class="project-img">
+          <span class="project-cat-badge" [class]="'badge-' + project.category.toLowerCase()">{{ project.category }}</span>
+        </div>
+
+        <!-- Card Body -->
+        <div class="project-body">
+          <h3 class="project-card-title">{{ project.title }}</h3>
+          <p class="project-card-desc">{{ project.description }}</p>
+          
+          <!-- Technology Badges -->
+          <div class="project-tech-badges">
+            <span *ngFor="let tech of project.technologies.slice(0, 4)" class="tech-tag">{{ tech }}</span>
+            <span *ngFor="let tech of project.technologies.slice(4)" class="tech-tag-hidden">+{{ project.technologies.length - 4 }}</span>
+          </div>
+
+          <!-- Bottom Action Redirects -->
+          <div class="project-card-actions" (click)="$event.stopPropagation();">
+            <div class="card-left-actions">
+              <a *ngIf="project.demoLink" [href]="project.demoLink" target="_blank" class="action-btn-demo" title="Open Live Demo">
+                <i class="fas fa-external-link-alt"></i> Demo
+              </a>
+              <a *ngIf="project.githubLink" [href]="project.githubLink" target="_blank" class="action-btn-git" title="View Source Code">
+                <i class="fab fa-github"></i> Code
+              </a>
+            </div>
+            <button class="action-btn-details" (click)="openDetails(project)">
+              Details <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Detailed Modal Glassmorphic Overlay -->
+    <div *ngIf="selectedProject" class="modal-overlay" (click)="closeDetails()">
+      <div class="glass-card modal-container" (click)="$event.stopPropagation();">
+        <button class="modal-close-btn" (click)="closeDetails()">&times;</button>
+        
+        <div class="modal-grid">
+          <!-- Modal Left Image -->
+          <div class="modal-img-column">
+            <img [src]="selectedProject.imageUrl || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500'" [alt]="selectedProject.title" class="modal-img">
+          </div>
+
+          <!-- Modal Right Description Details -->
+          <div class="modal-info-column">
+            <span class="badge" [class]="'badge-' + selectedProject.category.toLowerCase()">{{ selectedProject.category }}</span>
+            <h3 class="modal-title">{{ selectedProject.title }}</h3>
+            
+            <h5 class="modal-heading">Overview</h5>
+            <p class="modal-desc">{{ selectedProject.description }}</p>
+
+            <h5 class="modal-heading">Technologies Used</h5>
+            <div class="modal-tech-list">
+              <span *ngFor="let tech of selectedProject.technologies" class="modal-tech-pill">{{ tech }}</span>
+            </div>
+
+            <!-- Modal Action Buttons -->
+            <div class="modal-actions">
+              <a *ngIf="selectedProject.demoLink" [href]="selectedProject.demoLink" target="_blank" class="btn btn-primary">
+                <i class="fas fa-external-link-alt"></i> Launch Demo
+              </a>
+              <a *ngIf="selectedProject.githubLink" [href]="selectedProject.githubLink" target="_blank" class="btn btn-secondary">
+                <i class="fab fa-github"></i> View GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

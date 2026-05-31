@@ -1,0 +1,57 @@
+/* Footer Layout CSS */
+
+.footer-section {
+  background: hsla(240, 15%, 5%, 0.95);
+  border-top: 1px solid var(--card-border);
+  padding: 40px 0 30px;
+  position: relative;
+  z-index: 3;
+}
+
+.footer-simple-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.social-icons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.social-icon {
+  width: 42px;
+  height: 42px;
+  background: hsla(240, 15%, 15%, 0.6);
+  border: 1px solid var(--card-border);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.social-icon:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+.footer-copyright {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  margin-top: 6px;
+}
+
+.love-note {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}

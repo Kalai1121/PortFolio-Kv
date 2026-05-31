@@ -1,0 +1,211 @@
+/* Glassmorphic Responsive Navbar CSS */
+
+.navbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* --- Brand Logo --- */
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.nav-logo span.gradient-text {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.45rem;
+  letter-spacing: -1px;
+}
+
+.dev-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--secondary);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* --- Desktop Links --- */
+.nav-links-desktop {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+@media (max-width: 900px) {
+  .nav-links-desktop {
+    display: none;
+  }
+}
+
+.nav-link {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  position: relative;
+  padding: 6px 0;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--text-primary);
+}
+
+/* Premium Animated Underline Effect */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+  width: 100%;
+}
+
+.admin-nav-btn {
+  background: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.12);
+  border: 1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.25);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.admin-nav-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+/* --- Controls Shell --- */
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--secondary);
+  color: var(--secondary);
+  box-shadow: 0 0 8px var(--secondary-glow);
+  transform: rotate(20deg);
+}
+
+.hamburger-btn {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.hamburger-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+@media (max-width: 900px) {
+  .hamburger-btn {
+    display: flex;
+  }
+}
+
+/* --- Mobile Sliding Drawer --- */
+.mobile-drawer {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: hsla(var(--bg-color-h), var(--bg-color-s), var(--bg-color-l), 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow: hidden;
+  transition: height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  border-bottom: 0px solid var(--card-border);
+  z-index: 999;
+}
+
+.mobile-drawer.open {
+  height: calc(100vh - 80px);
+  border-bottom: 1px solid var(--card-border);
+}
+
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+
+.mobile-drawer.open .drawer-links {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.drawer-link {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+}
+
+.drawer-link:hover, .drawer-link.active {
+  color: var(--secondary);
+}
+
+.drawer-admin-btn {
+  background: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.15);
+  border: 1px solid hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.3);
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+}

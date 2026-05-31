@@ -1,0 +1,42 @@
+<nav class="glass-nav navbar-container">
+  <div class="container nav-content">
+    <!-- Brand Logo -->
+    <a [routerLink]="['/home']" fragment="home-top" class="nav-logo" (click)="closeMenu()">
+      <span class="gradient-text">Kalai S</span>
+      <span class="dev-badge">FULL-STACK</span>
+    </a>
+
+    <!-- Desktop Navigation Links -->
+    <div class="nav-links-desktop">
+      <a [routerLink]="['/home']" fragment="home-top" class="nav-link" id="nav-home">Home</a>
+      <a [routerLink]="['/home']" fragment="about" class="nav-link" id="nav-about">About Me</a>
+      <a [routerLink]="['/home']" fragment="skills" class="nav-link" id="nav-skills">Skills</a>
+      <a [routerLink]="['/home']" fragment="portfolio" class="nav-link" id="nav-portfolio">Portfolio</a>
+      <a [routerLink]="['/home']" fragment="contact" class="nav-link" id="nav-contact">Contact</a>
+    </div>
+
+    <!-- Right Controls: Theme Toggle & Mobile Hamburger -->
+    <div class="nav-controls">
+      <!-- Theme Switcher Button -->
+      <button class="theme-toggle-btn" (click)="onThemeClick()" aria-label="Toggle Theme">
+        <i [class]="isDark ? 'fas fa-sun' : 'fas fa-moon'"></i>
+      </button>
+
+      <!-- Hamburger Menu Button -->
+      <button class="hamburger-btn" (click)="toggleMenu()" aria-label="Toggle Navigation Menu">
+        <i [class]="isMenuOpen ? 'fas fa-times' : 'fas fa-bars'"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu Overlay -->
+  <div class="mobile-drawer" [class.open]="isMenuOpen">
+    <div class="drawer-links">
+      <a [routerLink]="['/home']" fragment="home-top" class="drawer-link" id="mob-nav-home" (click)="closeMenu()">Home</a>
+      <a [routerLink]="['/home']" fragment="about" class="drawer-link" id="mob-nav-about" (click)="closeMenu()">About Me</a>
+      <a [routerLink]="['/home']" fragment="skills" class="drawer-link" id="mob-nav-skills" (click)="closeMenu()">Skills</a>
+      <a [routerLink]="['/home']" fragment="portfolio" class="drawer-link" id="mob-nav-portfolio" (click)="closeMenu()">Portfolio</a>
+      <a [routerLink]="['/home']" fragment="contact" class="drawer-link" id="mob-nav-contact" (click)="closeMenu()">Contact</a>
+    </div>
+  </div>
+</nav>

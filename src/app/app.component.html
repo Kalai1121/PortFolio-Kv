@@ -1,0 +1,17 @@
+<!-- Custom Header Navbar -->
+<app-navbar [isDark]="isDarkMode" (themeToggled)="toggleTheme()"></app-navbar>
+
+<!-- Main SPA Page Outlet -->
+<main class="content-wrapper">
+  <router-outlet></router-outlet>
+</main>
+
+<!-- Custom Footer -->
+<app-footer></app-footer>
+
+<!-- Floating WhatsApp Action Widget (Resume Contact Showcase) -->
+<div class="floating-widget">
+  <a href="https://wa.me/918925700309" target="_blank" class="widget-icon" title="Connect on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+</div>

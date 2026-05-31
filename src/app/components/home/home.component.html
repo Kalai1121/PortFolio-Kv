@@ -1,0 +1,96 @@
+<section class="home-hero-section" id="home-top">
+  <div class="container hero-grid">
+    <!-- Hero Left: Description Column -->
+    <div class="hero-left animate-fade-in">
+      <div class="badge badge-cyan animate-float">Based in Chennai, India</div>
+      <h1 class="hero-title">
+        Kalaivani S
+      </h1>
+
+      <h2 class="hero-subtitle">
+        Software Developer (Angular • Node.js • MongoDB)
+      </h2>
+
+      <div class="currently-working">
+        <span class="currently-label">Currently Working With:</span>
+        <span class="currently-pill">Angular 16</span>
+        <span class="currently-pill">SSR</span>
+        <span class="currently-pill">Node.js</span>
+        <span class="currently-pill">MongoDB</span>
+        <span class="currently-pill">TypeScript</span>
+      </div>
+
+      <p class="hero-desc">
+        A detail-oriented software developer with hands-on experience building, scaling, and maintaining responsive
+        production applications. Focused on writing clean code, building reusable Angular components, and integrating
+        robust database systems with Node.js and MongoDB.
+      </p>
+
+      <!-- Key Metrics Row -->
+      <div class="hero-stats-row">
+        <div class="glass-card stat-card stat-card-1 animate-float">
+          <div class="stat-icon"><i class="fas fa-rocket"></i></div>
+          <div class="stat-info">
+            <h3>5+</h3>
+            <p>Live Projects</p>
+          </div>
+        </div>
+
+        <div class="glass-card stat-card stat-card-2" style="animation-delay: 1.5s;">
+          <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+          <div class="stat-info">
+            <h3>9.03</h3>
+            <p>B.E CGPA (ECE)</p>
+          </div>
+        </div>
+
+        <div class="glass-card stat-card stat-card-3" style="animation-delay: 3s;">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-info">
+            <h3>6 Yrs</h3>
+            <p>Volleyball Lead</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="hero-ctas">
+        <a routerLink="/contact" class="btn btn-primary animate-glow">
+          <i class="far fa-paper-plane"></i> Get in Touch
+        </a>
+        <a href="https://kalai1121.github.io/Portfolio-Kalai/uploads/Kalai-resume.pdf" target="_blank"
+          class="btn btn-secondary">
+          <i class="fas fa-download"></i> Download CV
+        </a>
+        <div class="hero-social-links">
+          <a href="https://github.com/kalai1121" target="_blank" title="GitHub" class="hero-social-icon">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="https://linkedin.com/in/kalaivani-s-96509921b" target="_blank" title="LinkedIn"
+            class="hero-social-icon">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="mailto:kalaivanibadhri@gmail.com" title="Email" class="hero-social-icon">
+            <i class="far fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Right: Profile Image -->
+    <div class="hero-right">
+      <div class="profile-image-container glass-card animate-fade-in">
+        <img src="assets/profile.jpg" alt="Kalaivani S" class="profile-image">
+      </div>
+
+      <!-- Interactive Grid Backdrop -->
+      <div class="cyber-glow-bg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Scrollable continuous sections stacked on Home page -->
+<app-about id="about" class="scroll-reveal-section"></app-about>
+<app-skills id="skills" class="scroll-reveal-section"></app-skills>
+<app-portfolio id="portfolio" class="scroll-reveal-section"></app-portfolio>
+<app-contact id="contact" class="scroll-reveal-section"></app-contact>

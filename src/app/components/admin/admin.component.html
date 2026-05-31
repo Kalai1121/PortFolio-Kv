@@ -1,0 +1,172 @@
+<section class="section">
+  <div class="container">
+    <h2 class="section-title">Admin Dashboard</h2>
+
+    <!-- RBAC Visual Simulation Panel -->
+    <div class="glass-card rbac-simulator-card">
+      <div class="rbac-header">
+        <h3><i class="fas fa-sliders-h"></i> Role-Based Access Simulation</h3>
+        <span class="active-role-tag" [class]="'role-' + activeRole.toLowerCase()">Active Role: {{ activeRole }}</span>
+      </div>
+      <p class="rbac-desc">
+        Demonstrating dynamic access permissions. You can switch roles below to see how the dashboard hides/shows data and restricts actions depending on authorization:
+      </p>
+      
+      <!-- Simulation Tabs -->
+      <div class="rbac-tabs">
+        <button (click)="simulateRole('Guest')" [class.active]="activeRole === 'Guest'" class="rbac-tab-btn">
+          <i class="fas fa-eye"></i> Guest Role
+        </button>
+        <button (click)="simulateRole('Admin')" [class.active]="activeRole === 'Admin'" class="rbac-tab-btn">
+          <i class="fas fa-user-cog"></i> Admin Role
+        </button>
+        <button (click)="simulateRole('SuperAdmin')" [class.active]="activeRole === 'SuperAdmin'" class="rbac-tab-btn">
+          <i class="fas fa-user-shield"></i> Super Admin Role
+        </button>
+      </div>
+
+      <!-- Real Auth Form Toggle -->
+      <div class="rbac-login-section">
+        <span class="divider-text">OR ENTER AUTHORIZATION KEY</span>
+        
+        <form *ngIf="activeRole === 'Guest'" (ngSubmit)="onLoginSubmit()" #loginForm="ngForm" class="auth-key-form">
+          <input type="password" name="passkey" [(ngModel)]="passkey" required class="form-input key-input" placeholder="Enter administrative passkey...">
+          <button type="submit" class="btn btn-primary btn-auth-submit">Authenticate</button>
+        </form>
+        
+        <div *ngIf="activeRole !== 'Guest'" class="active-auth-session">
+          <p class="session-text"><i class="fas fa-check-circle"></i> Authenticated Session (Token Key Loaded)</p>
+          <button (click)="onLogout()" class="btn btn-secondary btn-logout">Logout / Reset</button>
+        </div>
+        <p *ngIf="authError" class="auth-error-msg"><i class="fas fa-exclamation-circle"></i> {{ authError }}</p>
+      </div>
+
+      <!-- Quick credentials tip alert -->
+      <div class="credentials-tip-box">
+        <p><strong><i class="fas fa-info-circle"></i> Developer Cheat Sheet:</strong></p>
+        <ul>
+          <li>Admin Key: <code>admin_secret_key_127_986</code></li>
+          <li>Super Admin Key: <code>super_admin_secret_key_999_888</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Statistics widgets grid -->
+    <div class="admin-stats-grid">
+      <div class="glass-card stat-widget widget-total">
+        <div class="widget-icon"><i class="far fa-envelope"></i></div>
+        <div class="widget-data">
+          <h4>Total Inquiries</h4>
+          <h3>{{ totalInquiries }}</h3>
+        </div>
+      </div>
+      
+      <div class="glass-card stat-widget widget-pending">
+        <div class="widget-icon"><i class="fas fa-clock"></i></div>
+        <div class="widget-data">
+          <h4>Pending</h4>
+          <h3>{{ pendingCount }}</h3>
+        </div>
+      </div>
+
+      <div class="glass-card stat-widget widget-responded">
+        <div class="widget-icon"><i class="far fa-check-circle"></i></div>
+        <div class="widget-data">
+          <h4>Responded</h4>
+          <h3>{{ respondedCount }}</h3>
+        </div>
+      </div>
+
+      <div class="glass-card stat-widget widget-archived">
+        <div class="widget-icon"><i class="fas fa-archive"></i></div>
+        <div class="widget-data">
+          <h4>Archived</h4>
+          <h3>{{ archivedCount }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inbox Inbox Section -->
+    <div class="inbox-section-container">
+      <h3 class="inbox-section-title"><i class="fas fa-inbox"></i> MongoDB Message Inbox</h3>
+      
+      <!-- Loading Indicators -->
+      <div *ngIf="isLoading" class="loading-state">
+        <div class="loading-spinner"></div>
+        <p>Retrieving contact inquiries from MongoDB...</p>
+      </div>
+
+      <!-- Access Restricted Banner (Guest Role) -->
+      <div *ngIf="activeRole === 'Guest'" class="glass-card restricted-banner">
+        <i class="fas fa-lock restricted-icon animate-float"></i>
+        <h3>Access Restricted</h3>
+        <p>
+          The contact inquiries inbox is only accessible to authorized roles. Switch to the Admin or Super Admin simulation roles above to view the message list, test status filters, and perform CRUD actions.
+        </p>
+      </div>
+
+      <!-- Access Forbidden Alert (API Failures) -->
+      <div *ngIf="inboxError" class="glass-card restricted-banner">
+        <i class="fas fa-exclamation-triangle restricted-icon error-icon"></i>
+        <h3>Database Connection Error</h3>
+        <p>{{ inboxError }}</p>
+        <button class="btn btn-secondary btn-sm" (click)="fetchInquiries()"><i class="fas fa-sync"></i> Retry</button>
+      </div>
+
+      <!-- Message Inbox (Admin / Super Admin roles) -->
+      <div *ngIf="!isLoading && !inboxError && activeRole !== 'Guest'" class="messages-list-wrapper">
+        <div *ngIf="inquiries.length === 0" class="glass-card no-messages-banner">
+          <i class="far fa-folder-open"></i>
+          <p>No messages have been submitted yet. Go to the Contact page to send a message!</p>
+        </div>
+
+        <!-- Inbox Grid list -->
+        <div class="messages-stack" *ngIf="inquiries.length > 0">
+          <div *ngFor="let msg of inquiries" class="glass-card message-card" [class.msg-responded]="msg.status === 'Responded'" [class.msg-archived]="msg.status === 'Archived'">
+            <div class="message-card-header">
+              <div class="sender-meta">
+                <h4>{{ msg.name }}</h4>
+                <a [href]="'mailto:' + msg.email" class="sender-email">{{ msg.email }}</a>
+              </div>
+              <div class="message-badge-wrap">
+                <span class="status-badge" [class]="'status-' + msg.status.toLowerCase()">{{ msg.status }}</span>
+                <span class="message-date">{{ msg.createdAt | date:'short' }}</span>
+              </div>
+            </div>
+            
+            <div class="message-card-body">
+              <p class="message-subject"><strong>Subject:</strong> {{ msg.subject }}</p>
+              <p class="message-content">{{ msg.message }}</p>
+            </div>
+
+            <!-- Dashboard CRUD Action Buttons -->
+            <div class="message-card-actions">
+              <!-- Administrative Status updates -->
+              <div class="status-actions">
+                <button *ngIf="msg.status !== 'Responded'" (click)="updateStatus(msg._id!, 'Responded')" class="action-btn btn-status-check" title="Mark as Responded">
+                  <i class="fas fa-check"></i> Mark Responded
+                </button>
+                <button *ngIf="msg.status !== 'Archived'" (click)="updateStatus(msg._id!, 'Archived')" class="action-btn btn-status-archive" title="Archive message">
+                  <i class="fas fa-archive"></i> Archive
+                </button>
+                <button *ngIf="msg.status !== 'Pending'" (click)="updateStatus(msg._id!, 'Pending')" class="action-btn btn-status-pending" title="Mark as Pending">
+                  <i class="fas fa-history"></i> Reset Pending
+                </button>
+              </div>
+
+              <!-- Super Administrative Deletion (Full CRUD demonstration) -->
+              <div class="danger-actions">
+                <button *ngIf="activeRole === 'SuperAdmin'" (click)="deleteMessage(msg._id!)" class="action-btn btn-status-delete" title="Permanently delete from MongoDB (CRUD)">
+                  <i class="far fa-trash-alt"></i> Delete Message
+                </button>
+                <span *ngIf="activeRole === 'Admin'" class="rbac-delete-disabled-tip" title="Super Admin rights required to delete records.">
+                  <i class="fas fa-lock"></i> Delete Locked (SuperAdmin Required)
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

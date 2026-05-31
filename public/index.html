@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Kalaivani S | Full Stack Developer | Angular & MongoDB Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- Font Integration: Outfit & Inter for Premium Aesthetics -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header Navbar -->
+  <nav class="glass-nav navbar-container">
+    <div class="container nav-content">
+      <!-- Brand Logo -->
+      <a href="#home" class="nav-logo">
+        <span class="gradient-text">Kalai</span>
+        <span class="dev-badge">Software Developer</span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="nav-links-desktop">
+        <a href="#home" class="nav-link active" data-target="home">Home</a>
+        <a href="#about" class="nav-link" data-target="about">About Me</a>
+        <a href="#skills" class="nav-link" data-target="skills">Skills</a>
+        <a href="#portfolio" class="nav-link" data-target="portfolio">Portfolio</a>
+        <a href="#contact" class="nav-link" data-target="contact">Contact</a>
+      </div>
+
+      <!-- Controls -->
+      <div class="nav-controls">
+        <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Theme">
+          <i class="fas fa-sun" id="themeIcon"></i>
+        </button>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Menu">
+          <i class="fas fa-bars" id="hamburgerIcon"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Menu Overlay -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <div class="drawer-links">
+        <a href="#home" class="drawer-link" data-target="home">Home</a>
+        <a href="#about" class="drawer-link" data-target="about">About Me</a>
+        <a href="#skills" class="drawer-link" data-target="skills">Skills</a>
+        <a href="#portfolio" class="drawer-link" data-target="portfolio">Portfolio</a>
+        <a href="#contact" class="drawer-link" data-target="contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Central SPA Router Content Pages -->
+  <main class="content-wrapper">
+    
+    <!-- 1. HOME PAGE -->
+    <section id="home-page" class="spa-page active">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <div class="badge badge-cyan">Based in Chennai, India</div>
+          <h1 class="hero-title">
+            Kalaivani S
+          </h1>
+          <h2 class="hero-subtitle">
+            Software Developer (Angular • Node.js • MongoDB)
+          </h2>
+          <div class="currently-working">
+            <span class="currently-label">Currently Working With:</span>
+            <span class="currently-pill">Angular 16</span>
+            <span class="currently-pill">SSR</span>
+            <span class="currently-pill">Node.js</span>
+            <span class="currently-pill">MongoDB</span>
+            <span class="currently-pill">TypeScript</span>
+          </div>
+          <p class="hero-desc">
+            A detail-oriented software developer with hands-on experience building, scaling, and maintaining responsive production applications. Focused on writing clean code, building reusable Angular components, and integrating robust database systems with Node.js and MongoDB.
+          </p>
+          
+          <!-- Key Metrics Row -->
+          <div class="hero-stats-row">
+            <div class="glass-card stat-card stat-card-1">
+              <div class="stat-icon"><i class="fas fa-rocket"></i></div>
+              <div class="stat-info">
+                <h3>5+</h3>
+                <p>Live Projects</p>
+              </div>
+            </div>
+            
+            <div class="glass-card stat-card stat-card-2">
+              <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+              <div class="stat-info">
+                <h3>9.03</h3>
+                <p>B.E CGPA (ECE)</p>
+              </div>
+            </div>
+            
+            <div class="glass-card stat-card stat-card-3">
+              <div class="stat-icon"><i class="fas fa-users"></i></div>
+              <div class="stat-info">
+                <h3>6 Yrs</h3>
+                <p>Volleyball Lead</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-primary" id="btnHomeContact">
+              <i class="far fa-paper-plane"></i> Get in Touch
+            </a>
+            <a href="https://kalai1121.github.io/Portfolio-Kalai/uploads/Kalai-resume.pdf" target="_blank" class="btn btn-secondary">
+              <i class="fas fa-download"></i> Download CV
+            </a>
+            <div class="hero-social-links">
+              <a href="https://github.com/kalai1121" target="_blank" title="GitHub" class="hero-social-icon">
+                <i class="fab fa-github"></i>
+              </a>
+              <a href="https://linkedin.com/in/kalaivani-s-96509921b" target="_blank" title="LinkedIn" class="hero-social-icon">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="mailto:kalaivanibadhri@gmail.com" title="Email" class="hero-social-icon">
+                <i class="far fa-envelope"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="profile-image-container glass-card">
+            <img src="profile.jpg" alt="Kalaivani S" class="profile-image">
+          </div>
+          <div class="cyber-glow-bg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ABOUT PAGE -->
+    <section id="about-page" class="spa-page scroll-reveal-section">
+      <div class="container">
+        <h2 class="section-title">About Me</h2>
+        
+        <div class="glass-card bio-card">
+          <div class="bio-avatar-wrapper">
+            <img src="about_profile.jpg" alt="Kalaivani S" class="bio-avatar">
+          </div>
+          <div class="bio-details">
+            <h3>Building Beautiful, High-Performance Systems</h3>
+            <p>
+              I am a passionate Frontend & Full-Stack Developer with hands-on experience building scalable and responsive
+              web applications. With a strong foundation in ECE, I enjoy transforming complex requirements into smooth,
+              engaging, and high-performance digital products.
+            </p>
+            <p>
+              Throughout my journey—from Intern to Software Developer Trainee—I have contributed to 5+ live production
+              applications, specializing in modern frontend architectures, reusable UI components, dynamic JSON-driven
+              rendering, and scalable database integrations using Node.js and MongoDB. I am passionate about writing clean,
+              optimized code and collaborating with Agile teams to solve real-world problems.
+            </p>
+          </div>
+        </div>
+
+        <!-- Timelines Grid -->
+        <div class="timelines-grid">
+          <!-- Academic Timelines -->
+          <div class="timeline-column">
+            <h3 class="timeline-col-title"><i class="fas fa-graduation-cap"></i> Academic Journey</h3>
+            <div class="vertical-timeline">
+              <div class="vertical-timeline-item">
+                <div class="timeline-dot dot-primary"></div>
+                <div class="glass-card timeline-card">
+                  <span class="timeline-tag tag-primary">2019 - 2023</span>
+                  <h4 class="event-role">Bachelor of Engineering (ECE) - CGPA: 9.03</h4>
+                  <p class="event-org">AAA College of Engineering & Technology</p>
+                  <p class="event-desc">Graduated with high honours. Recognized as the "Most Outstanding Student" of the 2019-2023 batch. Consistently ranked 1st/2nd/3rd in the department and presented research papers at 2 International Conferences.</p>
+                  <div class="academics-achievements">
+                    <span class="badge badge-cyan"><i class="fas fa-star"></i> Outstanding Student Award</span>
+                    <span class="badge badge-cyan"><i class="fas fa-award"></i> Dept Rank 1st/2nd/3rd</span>
+                    <span class="badge badge-cyan"><i class="fas fa-book"></i> 2 Conference Papers</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Professional Timelines -->
+          <div class="timeline-column">
+            <h3 class="timeline-col-title"><i class="fas fa-briefcase"></i> Professional Experience</h3>
+            <div class="vertical-timeline" id="experienceTimeline">
+              <!-- Rendered by app.js -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Timelines Extras -->
+        <div class="about-extras-grid">
+          <div class="glass-card extra-card leadership-card">
+            <div class="extra-icon"><i class="fas fa-volleyball-ball"></i></div>
+            <div class="extra-info">
+              <h3>Team Captain (6 Years)</h3>
+              <p>Led a **District-level Volleyball Team** for 6 consecutive years, gaining essential team coordination, strategic leadership, and high-pressure decision-making skills.</p>
+            </div>
+          </div>
+          <div class="glass-card extra-card chess-card">
+            <div class="extra-icon"><i class="fas fa-chess-knight"></i></div>
+            <div class="extra-info">
+              <h3>Creative & Strategic Mind</h3>
+              <p>Beyond programming, I challenge myself with **Chess**, create layouts using **Photoshop Editing**, and am always eager to learn **New Technologies** to expand my stack.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SKILLS PAGE -->
+    <section id="skills-page" class="spa-page scroll-reveal-section">
+      <div class="container">
+        <h2 class="section-title">Skills & Certifications</h2>
+        
+        <div class="skills-categories-grid" id="skillsGrid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+
+        <h3 class="certs-section-title"><i class="fas fa-medal"></i> Verified Credentials</h3>
+        <div class="certs-grid" id="certsGrid">
+          <!-- Rendered dynamically by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. PORTFOLIO PAGE -->
+    <section id="portfolio-page" class="spa-page scroll-reveal-section">
+      <div class="container">
+        <h2 class="section-title">My Portfolio</h2>
+        <p class="section-subtitle-desc">
+          A selection of projects ranging from enterprise-level Angular applications to full-stack portals and case studies.
+          All projects are **fetched dynamically from a MongoDB database**.
+        </p>
+
+        <!-- Filters -->
+        <div class="portfolio-filters" id="portfolioFilters">
+          <button class="filter-btn active" data-filter="All">All</button>
+          <button class="filter-btn" data-filter="Enterprise">Enterprise</button>
+          <button class="filter-btn" data-filter="Full-Stack">Full-Stack</button>
+          <button class="filter-btn" data-filter="Frontend">Frontend</button>
+          <button class="filter-btn" data-filter="UI-UX">UI-UX</button>
+        </div>
+
+        <!-- Spinner -->
+        <div class="loading-state" id="portfolioLoader">
+          <div class="loading-spinner"></div>
+          <p>Fetching projects from MongoDB database...</p>
+        </div>
+
+        <!-- Error Alert -->
+        <div class="error-state glass-card" id="portfolioError" style="display: none;">
+          <i class="fas fa-exclamation-triangle"></i>
+          <p id="portfolioErrorText">Could not load projects. Ensure the server and MongoDB are running.</p>
+          <button class="btn btn-secondary btn-sm" id="btnRetryProjects"><i class="fas fa-sync"></i> Retry</button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid" id="projectsGrid">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CONTACT PAGE -->
+    <section id="contact-page" class="spa-page scroll-reveal-section">
+      <div class="container">
+        <h2 class="section-title">Get In Touch</h2>
+        
+        <div class="contact-grid">
+          <div class="contact-info-column">
+            <div class="glass-card info-summary-card">
+              <h3>Contact Details</h3>
+              <p>
+                If you have an opening that matches my skills, a project idea, or just want to connect, feel free to reach out.
+              </p>
+              
+              <div class="info-details-list">
+                <div class="info-detail-item">
+                  <span class="info-icon"><i class="far fa-envelope"></i></span>
+                  <div class="info-text">
+                    <p class="info-label">Email Me</p>
+                    <a href="mailto:kalaivanibadhri@gmail.com" class="info-val">kalaivanibadhri@gmail.com</a>
+                  </div>
+                </div>
+                <div class="info-detail-item">
+                  <span class="info-icon"><i class="fas fa-phone-alt"></i></span>
+                  <div class="info-text">
+                    <p class="info-label">Call Me</p>
+                    <a href="tel:+918925700309" class="info-val">+91 8925700309</a>
+                  </div>
+                </div>
+                <div class="info-detail-item">
+                  <span class="info-icon"><i class="fas fa-map-marker-alt"></i></span>
+                  <div class="info-text">
+                    <p class="info-label">Location</p>
+                    <p class="info-val">Chennai, Tamil Nadu, India</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form-column">
+            <div class="glass-card form-container-card">
+              <div id="contactSuccessAlert" class="alert-box alert-success" style="display: none;">
+                <i class="far fa-check-circle"></i>
+                <div class="alert-content">
+                  <h4>Message Sent!</h4>
+                  <p>Thank you for reaching out. Your message has been saved in MongoDB and I will respond shortly.</p>
+                </div>
+              </div>
+
+              <div id="contactErrorAlert" class="alert-box alert-error" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <p id="contactErrorText"></p>
+              </div>
+
+              <!-- Input Form -->
+              <form id="contactFormEl" class="contact-form-el">
+                <div class="form-row-dual">
+                  <div class="form-group">
+                    <label for="c_name" class="form-label">Full Name <span class="required-tick">*</span></label>
+                    <input type="text" id="c_name" required class="form-input" placeholder="e.g. John Doe">
+                  </div>
+                  <div class="form-group">
+                    <label for="c_email" class="form-label">Email Address <span class="required-tick">*</span></label>
+                    <input type="email" id="c_email" required class="form-input" placeholder="e.g. john@example.com">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="c_subject" class="form-label">Subject</label>
+                  <input type="text" id="c_subject" class="form-input" placeholder="e.g. Freelance Opportunity">
+                </div>
+                <div class="form-group">
+                  <label for="c_message" class="form-label">Your Message <span class="required-tick">*</span></label>
+                  <textarea id="c_message" required rows="5" class="form-input textarea-input" placeholder="Describe your requirement..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary btn-submit" id="btnSubmitContact">
+                  <span><i class="far fa-paper-plane"></i> Send Message</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </section>
+  </main>
+
+  <!-- Detailed Modal Glassmorphic Overlay -->
+  <div class="modal-overlay" id="projectDetailsModal" style="display: none;">
+    <div class="glass-card modal-container">
+      <button class="modal-close-btn" id="btnModalClose">&times;</button>
+      
+      <div class="modal-grid">
+        <div class="modal-img-column">
+          <img src="" alt="" class="modal-img" id="modalProjectImg">
+        </div>
+        <div class="modal-info-column">
+          <span class="badge" id="modalProjectCat"></span>
+          <h3 class="modal-title" id="modalProjectTitle"></h3>
+          
+          <h5 class="modal-heading">Overview</h5>
+          <p class="modal-desc" id="modalProjectDesc"></p>
+
+          <h5 class="modal-heading">Technologies Used</h5>
+          <div class="modal-tech-list" id="modalProjectTech">
+            <!-- Pilled dynamically -->
+          </div>
+
+          <div class="modal-actions">
+            <a href="" target="_blank" class="btn btn-primary" id="modalProjectDemoLink">
+              <i class="fas fa-external-link-alt"></i> Launch Demo
+            </a>
+            <a href="" target="_blank" class="btn btn-secondary" id="modalProjectGitLink" style="display: none;">
+              <i class="fab fa-github"></i> View GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Floating Mouse Tracker Glow -->
+  <div class="cursor-glow" id="customCursorGlow"></div>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container footer-simple-content">
+      <div class="social-icons">
+        <a href="https://github.com/kalai1121" target="_blank" title="GitHub" class="social-icon">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/kalaivani-s-96509921b" target="_blank" title="LinkedIn" class="social-icon">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="mailto:kalaivanibadhri@gmail.com" title="Email" class="social-icon">
+          <i class="far fa-envelope"></i>
+        </a>
+        <a href="tel:+918925700309" title="Call" class="social-icon">
+          <i class="fas fa-phone-alt"></i>
+        </a>
+      </div>
+      <p class="footer-copyright">&copy; <span id="copyrightYear">2026</span> Kalaivani S. All rights reserved.</p>
+      <p class="love-note">Built with Angular & MongoDB</p>
+    </div>
+  </footer>
+
+  <!-- App scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

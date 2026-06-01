@@ -302,7 +302,7 @@
 .message-card-header {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: flex-start;
   border-bottom: 1px dashed var(--card-border);
   padding-bottom: 16px;
   margin-bottom: 16px;
@@ -312,7 +312,7 @@
   .message-card-header {
     flex-direction: column;
     gap: 12px;
-    align-items: start;
+    align-items: flex-start;
   }
 }
 

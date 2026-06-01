@@ -125,7 +125,7 @@
   padding: 20px;
   border-radius: 12px;
   margin-bottom: 28px;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .alert-success {

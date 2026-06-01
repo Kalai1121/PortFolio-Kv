@@ -59,6 +59,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'dist', 'kalai-portfolio')));
 
+// Serve uploaded assets (resumes, docs) BEFORE the SPA catch-all
+// so the wildcard route does not intercept them and return index.html
+app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
+
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI)
   .then(() => {
@@ -145,16 +149,6 @@ async function seedProjects() {
         imageUrl: "assets/eproov.png",
         featured: true
       },
-      // {
-      //   title: "House of Talent Platform",
-      //   description: "Collaborated on debugging, refactoring, and optimizing the user interface of an enterprise candidate talent pool directory.",
-      //   category: "Enterprise",
-      //   technologies: ["Angular", "TypeScript", "Bootstrap", "UI Optimization"],
-      //   demoLink: "",
-      //   githubLink: "",
-      //   imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&auto=format&fit=crop&q=60",
-      //   featured: false
-      // },
       {
         title: "Vigha Operations Interface",
         description: "Resolved responsive display layout bugs and improved overall usability of a multi-tenant operational control panel.",
@@ -406,6 +400,35 @@ app.delete('/api/contact/:id', checkAuth('SuperAdmin'), async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: 'Failed to delete message.' });
   }
+});
+
+// 6. Dedicated Resume Download Endpoint
+// Dynamically finds any PDF in public/uploads/ so the exact filename never matters.
+// Uses explicit headers so mobile browsers trigger a proper download.
+app.get('/api/resume', (req, res) => {
+  const uploadsDir = path.join(__dirname, 'public', 'uploads');
+
+  let resumeFile = null;
+  try {
+    const files = fs.readdirSync(uploadsDir);
+    resumeFile = files.find(f => f.toLowerCase().endsWith('.pdf'));
+    console.log('[Resume] Files in uploads:', files);
+    console.log('[Resume] Selected file:', resumeFile);
+  } catch (e) {
+    console.error('[Resume] Error reading uploads directory:', e.message);
+    return res.status(500).json({ error: 'Could not read uploads directory.' });
+  }
+
+  if (!resumeFile) {
+    return res.status(404).json({ error: 'No PDF resume found in public/uploads/.' });
+  }
+
+  const resumePath = path.join(uploadsDir, resumeFile);
+  console.log('[Resume] Full path:', resumePath);
+
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'attachment; filename="Kalaivani_Resume.pdf"');
+  res.sendFile(resumePath);
 });
 
 // SPA routing callback: Serves frontend layout for all other routes

@@ -17,7 +17,7 @@ try {
 try {
   const srcFileHome = 'C:\\Users\\kalai\\.gemini\\antigravity\\brain\\e93fe0d5-650d-49a5-b8ee-dec0490dd4e0\\media__1779189307475.jpg';
   const srcFileAbout = 'C:\\Users\\kalai\\.gemini\\antigravity\\brain\\e93fe0d5-650d-49a5-b8ee-dec0490dd4e0\\media__1779189307451.jpg';
-  
+
   const publicDestHome = path.join(__dirname, 'public', 'profile.jpg');
   const publicDestAbout = path.join(__dirname, 'public', 'about_profile.jpg');
   const assetsDir = path.join(__dirname, 'src', 'assets');
@@ -46,6 +46,76 @@ try {
   console.log('[Autocopy Warning] could not copy profile photos:', e.message);
 }
 
+// Auto-copy/sync the resume files
+try {
+  const srcUploads = path.join(__dirname, 'src', 'uploads');
+  const publicUploads = path.join(__dirname, 'public', 'uploads');
+  const distUploads = path.join(__dirname, 'dist', 'kalai-portfolio', 'uploads');
+
+  // Ensure directories exist if needed
+  if (!fs.existsSync(publicUploads)) {
+    fs.mkdirSync(publicUploads, { recursive: true });
+  }
+
+  // We consider src/uploads as the developer's source of truth for assets.
+  if (fs.existsSync(srcUploads)) {
+    const srcFiles = fs.readdirSync(srcUploads).filter(f => f.toLowerCase().endsWith('.pdf'));
+    if (srcFiles.length > 0) {
+      // Find the most recently modified PDF in src/uploads (just in case there are multiple)
+      const newestSrcFile = srcFiles
+        .map(name => ({ name, path: path.join(srcUploads, name), stat: fs.statSync(path.join(srcUploads, name)) }))
+        .sort((a, b) => b.stat.mtimeMs - a.stat.mtimeMs)[0];
+
+      if (newestSrcFile) {
+        console.log(`[Resume Sync] Source resume identified: ${newestSrcFile.name} (${newestSrcFile.stat.size} bytes)`);
+
+        const syncToFolder = (destDir) => {
+          if (!fs.existsSync(destDir)) return;
+          const destFiles = fs.readdirSync(destDir).filter(f => f.toLowerCase().endsWith('.pdf'));
+          
+          let needsCopy = true;
+          const destFilePath = path.join(destDir, newestSrcFile.name);
+
+          // If the exact same file (by name and size) already exists, skip copying
+          if (fs.existsSync(destFilePath)) {
+            const destStat = fs.statSync(destFilePath);
+            if (destStat.size === newestSrcFile.stat.size) {
+              needsCopy = false;
+            }
+          }
+
+          if (needsCopy) {
+            console.log(`[Resume Sync] Copying ${newestSrcFile.name} to ${destDir}`);
+            fs.copyFileSync(newestSrcFile.path, destFilePath);
+          }
+
+          // Clean up other old PDF files in the destination folder
+          destFiles.forEach(file => {
+            if (file !== newestSrcFile.name) {
+              try {
+                fs.unlinkSync(path.join(destDir, file));
+                console.log(`[Resume Sync] Removed outdated/duplicate resume: ${file} from ${destDir}`);
+              } catch (err) {
+                console.warn(`[Resume Sync] Failed to remove ${file}:`, err.message);
+              }
+            }
+          });
+        };
+
+        // Sync to public/uploads
+        syncToFolder(publicUploads);
+
+        // Sync to dist/kalai-portfolio/uploads if it has already been built
+        if (fs.existsSync(distUploads)) {
+          syncToFolder(distUploads);
+        }
+      }
+    }
+  }
+} catch (e) {
+  console.log('[Resume Sync Warning] Could not sync resume files:', e.message);
+}
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/portfolio_db';
@@ -59,9 +129,42 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'dist', 'kalai-portfolio')));
 
-// Serve uploaded assets (resumes, docs) BEFORE the SPA catch-all
-// so the wildcard route does not intercept them and return index.html
-app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
+// Case-insensitive uploads serving middleware (solves OS-specific case sensitivity issues on Linux/Render)
+app.use('/uploads/:filename', (req, res, next) => {
+  let uploadsDir = path.join(__dirname, 'dist', 'kalai-portfolio', 'uploads');
+  if (!fs.existsSync(uploadsDir)) {
+    uploadsDir = path.join(__dirname, 'src', 'uploads');
+  }
+  if (!fs.existsSync(uploadsDir)) {
+    uploadsDir = path.join(__dirname, 'public', 'uploads');
+  }
+
+  if (fs.existsSync(uploadsDir)) {
+    try {
+      const requestedName = req.params.filename.toLowerCase();
+      const files = fs.readdirSync(uploadsDir);
+      const matchedFile = files.find(f => f.toLowerCase() === requestedName);
+      if (matchedFile) {
+        return res.sendFile(path.join(uploadsDir, matchedFile));
+      }
+    } catch (err) {
+      console.error('[Uploads Route] Error serving file case-insensitively:', err.message);
+    }
+  }
+  next();
+});
+
+// Fallback static route for any other assets under /uploads
+app.use('/uploads', (req, res, next) => {
+  let uploadsDir = path.join(__dirname, 'dist', 'kalai-portfolio', 'uploads');
+  if (!fs.existsSync(uploadsDir)) {
+    uploadsDir = path.join(__dirname, 'src', 'uploads');
+  }
+  if (!fs.existsSync(uploadsDir)) {
+    uploadsDir = path.join(__dirname, 'public', 'uploads');
+  }
+  express.static(uploadsDir)(req, res, next);
+});
 
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI)
@@ -316,7 +419,7 @@ app.post('/api/contact', async (req, res) => {
   if (!name || !email || !message) {
     return res.status(400).json({ error: 'Name, Email, and Message are required fields.' });
   }
-  
+
   try {
     const newInquiry = new Inquiry({ name, email, subject, message });
     await newInquiry.save();
@@ -372,7 +475,7 @@ app.get('/api/contact', checkAuth('Admin'), async (req, res) => {
 app.put('/api/contact/:id', checkAuth('Admin'), async (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
-  
+
   if (!['Pending', 'Responded', 'Archived'].includes(status)) {
     return res.status(400).json({ error: 'Invalid status state supplied.' });
   }
@@ -403,16 +506,25 @@ app.delete('/api/contact/:id', checkAuth('SuperAdmin'), async (req, res) => {
 });
 
 // 6. Dedicated Resume Download Endpoint
-// Dynamically finds any PDF in public/uploads/ so the exact filename never matters.
+// Dynamically finds any PDF in the active uploads folder (dist -> src -> public)
+// so the exact filename never matters, and it always serves the latest.
 // Uses explicit headers so mobile browsers trigger a proper download.
 app.get('/api/resume', (req, res) => {
-  const uploadsDir = path.join(__dirname, 'public', 'uploads');
+  let uploadsDir = path.join(__dirname, 'dist', 'kalai-portfolio', 'uploads');
+  if (!fs.existsSync(uploadsDir)) {
+    uploadsDir = path.join(__dirname, 'src', 'uploads');
+  }
+  if (!fs.existsSync(uploadsDir)) {
+    uploadsDir = path.join(__dirname, 'public', 'uploads');
+  }
 
   let resumeFile = null;
   try {
-    const files = fs.readdirSync(uploadsDir);
-    resumeFile = files.find(f => f.toLowerCase().endsWith('.pdf'));
-    console.log('[Resume] Files in uploads:', files);
+    if (fs.existsSync(uploadsDir)) {
+      const files = fs.readdirSync(uploadsDir);
+      resumeFile = files.find(f => f.toLowerCase().endsWith('.pdf'));
+    }
+    console.log('[Resume] Active uploads dir:', uploadsDir);
     console.log('[Resume] Selected file:', resumeFile);
   } catch (e) {
     console.error('[Resume] Error reading uploads directory:', e.message);
@@ -420,7 +532,7 @@ app.get('/api/resume', (req, res) => {
   }
 
   if (!resumeFile) {
-    return res.status(404).json({ error: 'No PDF resume found in public/uploads/.' });
+    return res.status(404).json({ error: 'No PDF resume found in active uploads directory.' });
   }
 
   const resumePath = path.join(uploadsDir, resumeFile);
